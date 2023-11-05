@@ -6,6 +6,7 @@ import { MovieCoordinator } from '../utils/MovieCoordinator'
 import { Center, HStack, Button, Spacer, Input } from '@chakra-ui/react'
 
 const MOVIE_REVIEW_PROGRAM_ID = 'CenYq6bDRB7p73EjsPEpiYN7uveyPUTdXkDkgUduboaN'
+const perPage = 10
 
 export const MovieList: FC = () => {
     const connection = new web3.Connection(web3.clusterApiUrl('devnet'))
@@ -17,7 +18,7 @@ export const MovieList: FC = () => {
         MovieCoordinator.fetchPage(
             connection,
             page,
-            10,
+            perPage,
             search,
             search !== ''
         ).then(setMovies)
@@ -50,7 +51,7 @@ export const MovieList: FC = () => {
                     }
                     <Spacer />
                     {
-                        MovieCoordinator.accounts.length > page * 2 &&
+                        MovieCoordinator.accounts.length > page * perPage &&
                             <Button onClick={() => setPage(page + 1)}>Next</Button>
                     }
                 </HStack>
